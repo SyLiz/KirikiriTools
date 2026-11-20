@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include <objidl.h>
+#include <wrl/client.h>
 
 using namespace std;
 
@@ -143,8 +145,13 @@ tTJSBinaryStream* Patcher::CustomStorageMediaOpen(iTVPStorageMedia* pMedia, cons
             pMedia->GetName(mediaName);
             Debugger::Log(L"Redirecting %s://%s to %s", mediaName.c_str(), name.c_str(), url.c_str());
 
-            void* pComStream = Kirikiri::TVPCreateIStream(url.c_str(), flags);
-            return Kirikiri::TVPCreateBinaryStreamAdapter(pComStream);
+            Microsoft::WRL::ComPtr<IStream> stream;
+            stream.Attach(static_cast<IStream*>(Kirikiri::TVPCreateIStream(url.c_str(), flags)));
+            if (!stream)
+                throw std::runtime_error("Cannot open redirected mod resource");
+
+            // The adapter takes its own reference. Drop the creator's reference on scope exit.
+            return Kirikiri::TVPCreateBinaryStreamAdapter(stream.Get());
         }
     }
 
