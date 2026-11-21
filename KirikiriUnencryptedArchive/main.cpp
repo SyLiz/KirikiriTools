@@ -1,4 +1,5 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
+#include "SteamCheck.h"
 
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, LPVOID reserved)
 {
@@ -17,6 +18,18 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, LPVOID reserved)
         Kirikiri::Init(
             []
             {
+                std::wstring failReason;
+                if (!SteamCheck::VerifyGenuineSteamGame(&failReason))
+                {
+                    Debugger::Log(L"Steam authenticity check failed: %s", failReason.c_str());
+                    std::wstring msg =
+                        L"ม็อดภาษาไทย Senren * Banka รองรับเฉพาะตัวเกมแท้บน Steam เท่านั้น\n\n"
+                        L"สาเหตุ: " + failReason + L"\n\n"
+                        L"กรุณาติดตั้งและเปิดเล่นผ่านตัวเกมแท้บน Steam (AppID 1144400)";
+                    MessageBoxW(nullptr, msg.c_str(), L"Senren * Banka Thai Mod", MB_OK | MB_ICONWARNING);
+                    return;
+                }
+
                 CompilerHelper::Init();
                 Patcher::PatchXP3StreamCreation();
                 Patcher::PatchAutoPathExports();
