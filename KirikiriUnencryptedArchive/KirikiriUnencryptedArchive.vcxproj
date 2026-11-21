@@ -106,7 +106,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="CxdecHelper.cpp" />
-    <ClCompile Include="SteamCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CompilerSpecific\CallingConvention\BorlandRegToCdeclAdapter.h" />
@@ -125,7 +124,6 @@
     <ClInclude Include="Kirikiri\tTVPArchive.h" />
     <ClInclude Include="Kirikiri\tTVPXP3Archive.h" />
     <ClInclude Include="Patcher.h" />
-    <ClInclude Include="SteamCheck.h" />
     <ClInclude Include="PE\PE.h" />
     <ClInclude Include="Proxy.h" />
     <ClInclude Include="Debugger.h" />
