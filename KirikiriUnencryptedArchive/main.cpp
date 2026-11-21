@@ -23,10 +23,10 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD reason, LPVOID reserved)
                 {
                     Debugger::Log(L"Steam authenticity check failed: %s", failReason.c_str());
                     std::wstring msg =
-                        L"ม็อดภาษาไทย Senren * Banka รองรับเฉพาะตัวเกมแท้บน Steam เท่านั้น\n\n"
+                        L"ม็อดภาษาไทยนี้รองรับเฉพาะตัวเกมแท้บน Steam เท่านั้น\n\n"
                         L"สาเหตุ: " + failReason + L"\n\n"
-                        L"กรุณาติดตั้งและเปิดเล่นผ่านตัวเกมแท้บน Steam (AppID 1144400)";
-                    MessageBoxW(nullptr, msg.c_str(), L"Senren * Banka Thai Mod", MB_OK | MB_ICONWARNING);
+                        L"กรุณาติดตั้งและเปิดเล่นผ่านตัวเกมแท้บน Steam";
+                    MessageBoxW(nullptr, msg.c_str(), L"Thai Mod", MB_OK | MB_ICONWARNING);
                     return;
                 }
 

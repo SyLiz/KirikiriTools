@@ -12,8 +12,6 @@ namespace fs = std::filesystem;
 
 namespace
 {
-    constexpr const wchar_t* kSteamAppId = L"1144400";
-
     bool SetReason(std::wstring* pOut, const wchar_t* msg)
     {
         if (pOut != nullptr)
@@ -141,15 +139,6 @@ bool SteamCheck::VerifyGenuineSteamGame(std::wstring* pFailReason)
                 *pFailReason = std::wstring(L"ตรวจพบไฟล์จำลอง Steam เถื่อน (") + artifact + L")";
             return false;
         }
-    }
-
-    // Check 4: Verify Steam library ACF manifest (..\..\appmanifest_1144400.acf)
-    fs::path steamAppsDir = gameDir.parent_path().parent_path();
-    if (!steamAppsDir.empty())
-    {
-        fs::path acf = steamAppsDir / (std::wstring(L"appmanifest_") + kSteamAppId + L".acf");
-        if (!fs::is_regular_file(acf, ec))
-            return SetReason(pFailReason, L"ไม่พบไฟล์ appmanifest_1144400.acf ในคลัง Steam");
     }
 
     return true;
